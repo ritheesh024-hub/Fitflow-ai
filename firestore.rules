@@ -1,0 +1,106 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // User profiles and all user-owned data
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // AI Personalized Plans collection & subcollections
+      match /plans/{planId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subcollection=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+
+      // Workouts collection & subcollections
+      match /workouts/{workoutId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subcollection=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+
+      // Workout templates collection
+      match /workoutTemplates/{templateId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Daily activity metrics
+      match /activity/{dateId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Daily hydration
+      match /hydration/{dateId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Meals
+      match /meals/{mealId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Sleep logs
+      match /sleep/{dateId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Habits and nested completions subcollection
+      match /habits/{habitId} {
+        allow read, write: if isOwner(userId);
+
+        match /completions/{completionDate} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+
+      // Notification & Reminder settings
+      match /notificationSettings/{settingId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Daily checkins
+      match /dailyCheckins/{dateId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Weekly reviews
+      match /weeklyReviews/{weekId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Daily summaries
+      match /dailySummaries/{dateId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Achievements
+      match /achievements/{achievementId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Catch-all for any other nested subcollections under the user
+      match /{allSubcollections=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+  }
+}

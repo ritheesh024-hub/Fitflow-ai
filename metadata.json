@@ -1,0 +1,6 @@
+{
+  "name": "FitFlow AI — Wellness Companion",
+  "description": "Premium AI fitness and wellness companion for tracking workouts, activity, hydration, balanced nutrition, sleep recovery, habits, and receiving supportive Gemini AI coaching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

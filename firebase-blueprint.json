@@ -1,0 +1,256 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile, settings, and wellness preferences",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 200 },
+        "interests": { "type": "array" },
+        "waterGoalMl": { "type": "number" },
+        "dailyStepGoal": { "type": "number" },
+        "sleepGoalHours": { "type": "number" },
+        "weeklyWorkoutGoal": { "type": "number" },
+        "theme": { "type": "string", "enum": ["light", "dark", "system"] },
+        "notificationsEnabled": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "displayName"]
+    },
+    "Workout": {
+      "title": "Workout",
+      "description": "Logged workout session with exercises, sets, reps, and duration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 50 },
+        "durationMinutes": { "type": "number" },
+        "exercises": { "type": "array" },
+        "notes": { "type": "string", "maxLength": 500 },
+        "completed": { "type": "boolean" },
+        "date": { "type": "string", "maxLength": 20 },
+        "completedAt": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "date"]
+    },
+    "WorkoutTemplate": {
+      "title": "WorkoutTemplate",
+      "description": "Reusable workout routine templates saved by user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 50 },
+        "exercises": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title"]
+    },
+    "Activity": {
+      "title": "Activity",
+      "description": "Daily movement metrics including steps, distance, active minutes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "steps": { "type": "number" },
+        "distanceKm": { "type": "number" },
+        "activeMinutes": { "type": "number" },
+        "approxCalories": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "steps"]
+    },
+    "Hydration": {
+      "title": "Hydration",
+      "description": "Daily water intake tracking and entries",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "waterMl": { "type": "number" },
+        "goalMl": { "type": "number" },
+        "entries": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "waterMl"]
+    },
+    "Meal": {
+      "title": "Meal",
+      "description": "Balanced meal log focusing on food diversity and nourishing categories",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "mealType": { "type": "string", "enum": ["breakfast", "lunch", "dinner", "snack"] },
+        "name": { "type": "string", "maxLength": 150 },
+        "categories": { "type": "array" },
+        "notes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "mealType", "name"]
+    },
+    "SleepRecord": {
+      "title": "SleepRecord",
+      "description": "Nightly sleep and morning recovery score metrics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "durationMinutes": { "type": "number" },
+        "bedtime": { "type": "string", "maxLength": 20 },
+        "wakeTime": { "type": "string", "maxLength": 20 },
+        "energyLevel": { "type": "number" },
+        "recoveryRating": { "type": "string", "maxLength": 50 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "durationMinutes"]
+    },
+    "Habit": {
+      "title": "Habit",
+      "description": "User habit definitions and target frequencies",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "icon": { "type": "string", "maxLength": 50 },
+        "category": { "type": "string", "maxLength": 50 },
+        "streak": { "type": "number" },
+        "active": { "type": "boolean" },
+        "completedDates": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name"]
+    },
+    "Achievement": {
+      "title": "Achievement",
+      "description": "Unlocked milestones, streaks, and healthy habit rewards",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "badgeKey": { "type": "string", "maxLength": 80 },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 250 },
+        "unlockedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "badgeKey"]
+    },
+    "DailyCheckin": {
+      "title": "DailyCheckin",
+      "description": "User daily feeling, mood, and energy check-in",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "mood": { "type": "string", "enum": ["great", "good", "okay", "low", "tired"] },
+        "energy": { "type": "string", "enum": ["high", "medium", "low", "exhausted"] },
+        "note": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "mood"]
+    },
+    "WeeklyReview": {
+      "title": "WeeklyReview",
+      "description": "AI-generated structured weekly reflection, wins, and consistency score",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "weekStartDate": { "type": "string", "maxLength": 20 },
+        "weekEndDate": { "type": "string", "maxLength": 20 },
+        "summary": { "type": "string", "maxLength": 1000 },
+        "strongestHabit": { "type": "string", "maxLength": 100 },
+        "areaToImprove": { "type": "string", "maxLength": 100 },
+        "whatWentWell": { "type": "array" },
+        "consistencyScore": { "type": "number" },
+        "dataCompleteness": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "weekStartDate", "summary"]
+    },
+    "Plan": {
+      "title": "Plan",
+      "description": "AI-generated personalized weekly plan and routines",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 150 },
+        "summary": { "type": "string", "maxLength": 500 },
+        "weeklyGoalSummary": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["active", "paused", "completed", "archived"] },
+        "preferences": { "type": "object" },
+        "days": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "UserProfile" },
+      "description": "Private user profile and preference document"
+    },
+    "/users/{userId}/dailyCheckins/{date}": {
+      "schema": { "$ref": "DailyCheckin" },
+      "description": "Daily user feeling and mood check-in"
+    },
+    "/users/{userId}/weeklyReviews/{weekId}": {
+      "schema": { "$ref": "WeeklyReview" },
+      "description": "Weekly AI consistency reviews"
+    },
+    "/users/{userId}/plans/{planId}": {
+      "schema": { "$ref": "Plan" },
+      "description": "User's AI personalized workout and habit plans"
+    },
+    "/users/{userId}/workouts/{workoutId}": {
+      "schema": { "$ref": "Workout" },
+      "description": "User's individual workout logs"
+    },
+    "/users/{userId}/workoutTemplates/{templateId}": {
+      "schema": { "$ref": "WorkoutTemplate" },
+      "description": "User's saved custom workout templates"
+    },
+    "/users/{userId}/activity/{date}": {
+      "schema": { "$ref": "Activity" },
+      "description": "Daily movement metrics per date"
+    },
+    "/users/{userId}/hydration/{date}": {
+      "schema": { "$ref": "Hydration" },
+      "description": "Daily water tracking logs"
+    },
+    "/users/{userId}/meals/{mealId}": {
+      "schema": { "$ref": "Meal" },
+      "description": "Meal logs for balanced eating patterns"
+    },
+    "/users/{userId}/sleep/{date}": {
+      "schema": { "$ref": "SleepRecord" },
+      "description": "Nightly sleep and recovery logs"
+    },
+    "/users/{userId}/habits/{habitId}": {
+      "schema": { "$ref": "Habit" },
+      "description": "User habits and streak logs"
+    },
+    "/users/{userId}/achievements/{achievementId}": {
+      "schema": { "$ref": "Achievement" },
+      "description": "Unlocked badges and milestones"
+    }
+  }
+}
